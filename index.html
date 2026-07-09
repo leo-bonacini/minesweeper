@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+<title>Minesweeper</title>
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-theme="dark">
+
+<div id="screen-flash" class="screen-flash" aria-hidden="true"></div>
+
+<div class="app">
+
+  <header class="app-header">
+    <div class="brand">
+      <span class="brand-icon" aria-hidden="true">💣</span>
+      <h1>Minesweeper</h1>
+    </div>
+
+    <div class="hud">
+      <div class="hud-stat" id="mine-counter" role="status" aria-label="Mines remaining">
+        <span class="hud-icon" aria-hidden="true">🚩</span>
+        <span id="mine-count-value">10</span>
+      </div>
+
+      <button id="face-button" class="face-button" aria-label="Restart game" title="Restart">
+        <span id="face-icon">🙂</span>
+      </button>
+
+      <div class="hud-stat" id="timer-display" role="status" aria-label="Elapsed time">
+        <span class="hud-icon" aria-hidden="true">⏱</span>
+        <span id="timer-value">000</span>
+      </div>
+    </div>
+
+    <div class="header-actions">
+      <label class="difficulty-select-wrap">
+        <span class="sr-only">Difficulty</span>
+        <select id="difficulty-select" aria-label="Select difficulty">
+          <option value="easy">Easy 9×9</option>
+          <option value="medium">Medium 16×16</option>
+          <option value="hard">Hard 30×16</option>
+          <option value="expert">Expert 40×20</option>
+          <option value="custom">Custom…</option>
+        </select>
+      </label>
+
+      <button id="pause-button" class="icon-button" aria-label="Pause game" title="Pause">⏸</button>
+      <button id="settings-button" class="icon-button" aria-label="Open settings" title="Settings">⚙</button>
+    </div>
+  </header>
+
+  <main class="board-viewport">
+    <div id="board-wrapper" class="board-wrapper">
+      <div id="board" class="board" role="grid" aria-label="Minesweeper board" tabindex="0"></div>
+    </div>
+
+    <div id="pause-overlay" class="overlay hidden">
+      <div class="overlay-card">
+        <h2>Paused</h2>
+        <p>Take a break. Your progress is safe.</p>
+        <button id="resume-button" class="primary-button">Resume</button>
+      </div>
+    </div>
+
+    <div id="result-overlay" class="overlay hidden">
+      <div class="overlay-card">
+        <h2 id="result-title">You Win!</h2>
+        <p id="result-subtitle">Cleared in 000s</p>
+        <div class="overlay-actions">
+          <button id="result-restart-button" class="primary-button">Play Again</button>
+          <button id="result-close-button" class="secondary-button">Close</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div class="action-bar">
+    <button id="hint-button" class="icon-button" title="Reveal a safe hint">💡 Hint</button>
+    <button id="flag-mode-button" class="icon-button" title="Toggle flag placement mode (mobile)" aria-pressed="false">🚩 Flag Mode</button>
+    <button id="mute-button" class="icon-button" aria-pressed="false" title="Mute sound">🔊</button>
+  </div>
+
+  <footer class="app-footer">
+    <div class="stats-strip" id="stats-strip">
+      <span><strong id="stat-played">0</strong> Played</span>
+      <span><strong id="stat-winpct">0%</strong> Win rate</span>
+      <span><strong id="stat-streak">0</strong> Streak</span>
+      <span><strong id="stat-best">--</strong> Best time</span>
+    </div>
+    <div class="version">v1.0.0</div>
+  </footer>
+
+</div>
+
+<div id="settings-panel" class="settings-panel hidden" role="dialog" aria-modal="true" aria-labelledby="settings-title">
+  <div class="settings-card">
+    <div class="settings-header">
+      <h2 id="settings-title">Settings</h2>
+      <button id="settings-close-button" class="icon-button" aria-label="Close settings">✕</button>
+    </div>
+
+    <div class="settings-body">
+
+      <section class="settings-section">
+        <h3>Custom Board</h3>
+        <div class="custom-grid">
+          <label>Rows <input type="number" id="custom-rows" min="5" max="40" value="9" /></label>
+          <label>Columns <input type="number" id="custom-cols" min="5" max="60" value="9" /></label>
+          <label>Mines <input type="number" id="custom-mines" min="1" max="999" value="10" /></label>
+        </div>
+        <button id="custom-apply-button" class="secondary-button">Apply Custom Board</button>
+        <p id="custom-error" class="field-error" role="alert"></p>
+      </section>
+
+      <section class="settings-section">
+        <h3>Theme</h3>
+        <div class="theme-grid" id="theme-grid">
+          <button class="theme-swatch" data-theme="dark">Dark</button>
+          <button class="theme-swatch" data-theme="light">Light</button>
+          <button class="theme-swatch" data-theme="win95">Windows 95</button>
+          <button class="theme-swatch" data-theme="cyberpunk">Cyberpunk</button>
+          <button class="theme-swatch" data-theme="forest">Forest</button>
+          <button class="theme-swatch" data-theme="ocean">Ocean</button>
+        </div>
+      </section>
+
+      <section class="settings-section">
+        <h3>Preferences</h3>
+        <label class="toggle-row">
+          <span>Sound</span>
+          <input type="checkbox" id="setting-sound" />
+        </label>
+        <label class="toggle-row">
+          <span>Reduced motion</span>
+          <input type="checkbox" id="setting-reduced-motion" />
+        </label>
+        <label class="toggle-row">
+          <span>High contrast</span>
+          <input type="checkbox" id="setting-high-contrast" />
+        </label>
+        <label class="toggle-row">
+          <span>Animation speed</span>
+          <select id="setting-animation-speed">
+            <option value="slow">Slow</option>
+            <option value="normal" selected>Normal</option>
+            <option value="fast">Fast</option>
+          </select>
+        </label>
+        <label class="toggle-row">
+          <span>Cell size</span>
+          <select id="setting-cell-size">
+            <option value="small">Small</option>
+            <option value="normal" selected>Normal</option>
+            <option value="large">Large</option>
+          </select>
+        </label>
+      </section>
+
+      <section class="settings-section">
+        <h3>Statistics</h3>
+        <div class="stats-grid" id="stats-grid-full"></div>
+        <button id="reset-stats-button" class="secondary-button danger">Reset Statistics</button>
+      </section>
+
+    </div>
+  </div>
+</div>
+
+<div id="particle-layer" class="particle-layer" aria-hidden="true"></div>
+
+<script type="module" src="js/game.js"></script>
+</body>
+</html>
