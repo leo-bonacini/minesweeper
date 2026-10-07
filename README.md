@@ -25,10 +25,10 @@ A modern, dependency-free take on classic Minesweeper. Built with plain HTML5, C
 |---|---|---|
 | Reveal cell | Left click | Tap |
 | Flag / unflag cell | Right click | Long-press, or enable Flag Mode then tap |
-| Chord (reveal neighbors) | Double-click / middle-click a revealed number | — |
-| Move focus | Arrow keys | — |
-| Reveal focused cell | Enter / Space | — |
-| Flag focused cell | F | — |
+| Chord (reveal neighbors) | Double-click / middle-click a revealed number | - |
+| Move focus | Arrow keys | - |
+| Reveal focused cell | Enter / Space | - |
+| Flag focused cell | F | - |
 | Pause / resume | Pause button | Pause button |
 
 ## Technologies

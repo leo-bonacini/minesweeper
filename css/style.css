@@ -1,6 +1,4 @@
-/* ==========================================================================
-   Reset & base
-   ========================================================================== */
+/* Reset & base */
 *, *::before, *::after { box-sizing: border-box; }
 html, body { height: 100%; }
 body {
@@ -19,9 +17,7 @@ body {
 button { font-family: inherit; cursor: pointer; }
 input, select { font-family: inherit; }
 
-/* ==========================================================================
-   Theme variables
-   ========================================================================== */
+/* Theme variables */
 body[data-theme="dark"] {
   --bg-gradient: radial-gradient(circle at 20% 0%, #1e2436 0%, #0b0d16 60%);
   --panel-bg: rgba(30, 34, 54, 0.6);
@@ -121,9 +117,7 @@ body.high-contrast {
 body.high-contrast .cell.revealed { outline: 1px solid var(--text-primary); }
 body.high-contrast .cell.hidden-cell { outline: 1px solid var(--text-primary); }
 
-/* ==========================================================================
-   Layout
-   ========================================================================== */
+/* Layout */
 .app {
   max-width: 960px;
   margin: 0 auto;
@@ -207,9 +201,7 @@ body.high-contrast .cell.hidden-cell { outline: 1px solid var(--text-primary); }
   outline-offset: 2px;
 }
 
-/* ==========================================================================
-   Board
-   ========================================================================== */
+/* Board */
 .board-viewport {
   position: relative;
   display: flex;
@@ -286,9 +278,7 @@ body[data-cell-size="large"] .board { --cell-size: 42px; }
 
 .cell.hint-pulse { animation: hint-pulse 1.1s ease; }
 
-/* ==========================================================================
-   Overlays / modals
-   ========================================================================== */
+/* Overlays / modals */
 .overlay {
   position: absolute; inset: 0;
   background: rgba(5, 6, 12, 0.55);
@@ -334,9 +324,7 @@ body[data-cell-size="large"] .board { --cell-size: 42px; }
 #result-overlay.victory .overlay-card { box-shadow: 0 0 40px var(--success); }
 #result-overlay.defeat .overlay-card { box-shadow: 0 0 40px var(--danger); }
 
-/* ==========================================================================
-   Action bar & footer
-   ========================================================================== */
+/* Action bar & footer */
 .action-bar {
   display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;
 }
@@ -354,9 +342,7 @@ body[data-cell-size="large"] .board { --cell-size: 42px; }
 .stats-strip { display: flex; gap: 16px; flex-wrap: wrap; }
 .stats-strip strong { color: var(--text-primary); }
 
-/* ==========================================================================
-   Settings panel
-   ========================================================================== */
+/* Settings panel */
 .settings-panel {
   position: fixed; inset: 0;
   background: rgba(5, 6, 12, 0.6);
@@ -423,9 +409,7 @@ body[data-cell-size="large"] .board { --cell-size: 42px; }
 .stat-value { font-weight: 800; font-size: 1.05rem; }
 .stat-label { font-size: 0.7rem; color: var(--text-secondary); }
 
-/* ==========================================================================
-   Particles & effects
-   ========================================================================== */
+/* Particles & effects */
 .particle-layer {
   position: fixed; inset: 0; pointer-events: none; z-index: 80; overflow: hidden;
 }
@@ -505,9 +489,7 @@ body.reduced-motion *::after {
   * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
 }
 
-/* ==========================================================================
-   Responsive
-   ========================================================================== */
+/* Responsive */
 @media (max-width: 640px) {
   .app-header { flex-direction: column; align-items: stretch; }
   .hud { justify-content: center; }
